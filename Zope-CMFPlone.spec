@@ -4,13 +4,13 @@
 Summary:	Free and open source Content Management System based on Zope and CMF
 Summary(pl):	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
-Version:	2.0
+Version:	2.0.2
 # %%define		sub_ver RC6
-Release:	9
+Release:	1
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
-Source0:	http://dl.sourceforge.net/sourceforge/plone/%{zope_subname}-%{version}-final.tar.gz
-# Source0-md5:	208b500b4ef247db8fb54d9a7fac84ab
+Source0:	http://dl.sourceforge.net/plone/Plone-%{version}.tar.gz
+# Source0-md5:	8040d6e22b8610a5ff07dd78e5a1d823
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
 Requires:	Zope-archetypes >= 1.2.5
@@ -18,10 +18,11 @@ Requires:	Zope-PortalTransforms
 Requires:	Zope-CMF > 1.4.2
 Requires:	Zope >= 2.6.2
 Requires:	Zope-BTreeFolder2
-Requires:	Zope-CMFQuickInstallerTool
+Requires:	Zope-CMFQuickInstallerTool >= 1.5.0
 Requires:	Zope-ExternalEditor
 Requires:	Zope-Formulator >= 1.6.2
-Requires:	Zope-GroupUserFolder >= 2.0
+Requires:	Zope-GroupUserFolder >= 2.0.1
+Requires:	Zope-Epoz
 Requires:	i18ndude
 Requires(post,postun):	/usr/sbin/installzopeproduct
 BuildArch:	noarch
@@ -46,11 +47,11 @@ zabezpieczenia serwisu. Plone dzia³a w zestawie z CMF, Zope i
 Pythonem.
 
 %prep
-%setup -q -n %{zope_subname}-%{version}-final
+%setup -q -n Plone-%{version}
 # remove dirs - additional packages!
 # ExternalEditor
 rm -rf {BTreeFolder2,CMFQuickInstallerTool,Formulator,GroupUserFolder,Archetypes,generator,validation}
-rm -rf {CMFCalendar,CMFCore,CMFDefault,CMFTopic,DCWorkflow,PortalTransforms}
+rm -rf {CMFCalendar,CMFCore,CMFDefault,CMFTopic,DCWorkflow,PortalTransforms,Epoz}
 find . -type d -name debian | xargs rm -rf
 
 %build
