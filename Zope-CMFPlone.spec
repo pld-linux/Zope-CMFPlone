@@ -1,27 +1,30 @@
+#
+# Warning: This release makes some problems after upgrade - Zope 2.7.2 sometimes 
+# not started properly!
 
 %define		zope_subname	CMFPlone
 Summary:	Free and open source Content Management System based on Zope and CMF
 Summary(pl):	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
-Version:	2.0.3
+Version:	2.0.4
 # %%define		sub_ver RC6
 Release:	1
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/Plone-%{version}.tar.gz
-# Source0-md5:	ee8f1ae0e95ebfa2cd0585fc42bccd10
+# Source0-md5:	034e459d6323b33e0027ee2b89e1b9cb
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
 Requires:	Zope-archetypes >= 1.2.5
-Requires:	Zope-PortalTransforms
-Requires:	Zope-CMF >= 1.4.4
+Requires:	Zope-PortalTransforms >= 1.0.4
+Requires:	Zope-CMF >= 1.4.7
 Requires:	Zope >= 2.6.2
 Requires:	Zope-BTreeFolder2
 Requires:	Zope-CMFQuickInstallerTool >= 1.5.0
 Requires:	Zope-ExternalEditor
 Requires:	Zope-Formulator >= 1.6.2
 Requires:	Zope-GroupUserFolder >= 2.0.1
-Requires:	Zope-Epoz
+Requires:	Zope-Epoz >= 0.8.2
 Requires:	i18ndude
 Requires(post,postun):	/usr/sbin/installzopeproduct
 BuildArch:	noarch
@@ -56,11 +59,11 @@ find . -type d -name debian | xargs rm -rf
 %build
 mkdir docs docs/CMFPlone docs/CMFFormController docs/PlacelessTranslationService docs/PloneErrorReporting
 mv -f CMFPlone/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt,UPGRADE.txt,LICENSE.txt} docs/CMFPlone
-mv -f CMFPlone/docs/* docs/CMFPlone
+# mv -f CMFPlone/docs/* docs/CMFPlone
 rm -rf CMFPlone/LICENSE.GPL
 mv -f CMFFormController/{AUTHORS,ChangeLog,README.txt} docs/CMFFormController
 rm -rf CMFPlone/docs
-mv -f PlacelessTranslationService/{COPYING.txt,NEWS.txt} docs/PlacelessTranslationService
+mv -f PlacelessTranslationService/NEWS.txt docs/PlacelessTranslationService
 mv -f PloneErrorReporting/{ChangeLog,README.txt} docs/PloneErrorReporting
 rm -rf PloneErrorReporting/LICENSE.txt
 
