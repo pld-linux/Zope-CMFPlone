@@ -19,7 +19,7 @@ Requires:	Zope-BTreeFolder2
 Requires:	Zope-CMFQuickInstallerTool
 Requires:	Zope-ExternalEditor
 Requires:	Zope-Formulator
-Requires:	Zope-GroupUserFolder
+Requires:	Zope-GroupUserFolder >= 2.0
 Requires(post,postun):	/usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
