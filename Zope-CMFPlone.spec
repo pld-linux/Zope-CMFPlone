@@ -5,14 +5,16 @@ Summary:	Free and open source Content Management System based on Zope and CMF
 Summary:	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
 Version:	2.0
-%define		sub_ver RC5
-Release:	5.%{sub_ver}.2
+%define		sub_ver RC6
+Release:	5.%{sub_ver}.1
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
-Source0:	http://osdn.dl.sourceforge.net/sourceforge/plone/%{zope_subname}%{version}-%{sub_ver}.tar.gz
-# Source0-md5:	2c4ba0430b15756dfc192c63baa45466
+Source0:	http://osdn.dl.sourceforge.net/sourceforge/plone/%{zope_subname}%{version}-rc6.tar.gz
+# Source0-md5:	f6c03e49d910a6159f1810336941e92d
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
+Requires:	Zope-archetypes >= 1.2.4
+Requires:	Zope-PortalTransforms
 Requires:	Zope-CMF >= 1.4
 Requires:	Zope >= 2.6.2
 Requires:	Zope-BTreeFolder2
@@ -43,14 +45,15 @@ zabezpieczenia serwisu. Plone dzia³a w zestawie z CMF, Zope i
 Pythonem.
 
 %prep
-%setup -q -n %{zope_subname}-%{version}-%{sub_ver}
+%setup -q -n %{zope_subname}-%{version}-rc6
 # remove dirs - additional packages!
 # ExternalEditor
-rm -rf {BTreeFolder2,CMFQuickInstallerTool,Formulator,GroupUserFolder}
+rm -rf {BTreeFolder2,CMFQuickInstallerTool,Formulator,GroupUserFolder,Archetypes,generator,validation}
+rm -rf {CMFCalendar,CMFCore,CMFDefault,CMFTopic,DCWorkflow,PortalTransforms}
 find . -type d -name debian | xargs rm -rf
 
 %build
-mkdir docs docs/CMFPlone docs/CMFFormController docs/i18n docs/PlacelessTranslationService
+mkdir docs docs/CMFPlone docs/CMFFormController docs/i18n docs/PlacelessTranslationService docs/PloneErrorReporting
 mv -f CMFPlone/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt,UPGRADE.txt,LICENSE.txt} docs/CMFPlone
 mv -f CMFPlone/docs/* docs/CMFPlone
 mv -f CMFPlone/i18n/ChangeLog docs/i18n
@@ -59,6 +62,8 @@ rm -rf CMFPlone/LICENSE.GPL
 mv -f CMFFormController/{AUTHORS,ChangeLog,README.txt} docs/CMFFormController
 rm -rf CMFPlone/docs
 mv -f PlacelessTranslationService/{COPYING.txt,NEWS.txt} docs/PlacelessTranslationService
+mv -f PloneErrorReporting/{ChangeLog,README.txt} docs/PloneErrorReporting
+rm -rf PloneErrorReporting/LICENSE.txt
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -74,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in CMFPlone CMFActionIcons CMFFormController PlacelessTranslationService; do
+for p in CMFPlone CMFActionIcons CMFFormController PlacelessTranslationService PloneErrorReporting; do
 	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -83,7 +88,7 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-	for p in CMFPlone CMFActionIcons CMFFormController PlacelessTranslationService; do
+	for p in CMFPlone CMFActionIcons CMFFormController PlacelessTranslationService PloneErrorReporting; do
 		/usr/sbin/installzopeproduct -d $p
 	done
 	if [ -f /var/lock/subsys/zope ]; then
