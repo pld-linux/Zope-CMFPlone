@@ -15,7 +15,7 @@ URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
 Requires:	Zope-archetypes >= 1.2.4
 Requires:	Zope-PortalTransforms
-Requires:	Zope-CMF >= 1.4
+Requires:	Zope-CMF > 1.4.2
 Requires:	Zope >= 2.6.2
 Requires:	Zope-BTreeFolder2
 Requires:	Zope-CMFQuickInstallerTool
