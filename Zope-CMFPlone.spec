@@ -4,7 +4,7 @@ Summary:	A free, open source Content Management System based on Zope and CMF
 Summary:	Darmowy, otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-CMF%{zope_subname}
 Version:	1.0.5
-Release:	6
+Release:	7
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/CMF%{zope_subname}%{version}.tar.gz
@@ -14,11 +14,11 @@ URL:		http://www.plone.org/
 Requires:	Zope-CMF <= 1.4
 Requires:	Zope
 Requires:	Zope-Formulator
+Requires(post,postun):  /usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Obsoletes:	CMF
-
-%define		product_dir	/usr/lib/zope/Products
+Obsoletes:	Plone
+Conflicts:	CMF
 
 %description
 Plone is a free, open source Content Management System. The focus of
@@ -40,7 +40,7 @@ Pythonem.
 %setup -q -n CMF%{zope_subname}-%{version}
 
 %build
-# remove dir - additional spec!
+# remove dir - additional packages!
 rm -rf Formulator
 
 rm -rf `find . -type f -name .cvsignore`
@@ -55,19 +55,22 @@ rm -rf i18n/{build.bat,msgfmt.exe}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{product_dir}
-cp -af * $RPM_BUILD_ROOT%{product_dir}
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -af * $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-%py_comp $RPM_BUILD_ROOT%{product_dir}
-%py_ocomp $RPM_BUILD_ROOT%{product_dir}
+%py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
+%py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 # find $RPM_BUILD_ROOT -type f -name "*.py" -exec rm -rf {} \;;
-rm -rf $RPM_BUILD_ROOT%{product_dir}/docs
+rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
+for p in CMFPlone DCWorkflow i18n ; do
+        /usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
+done
 if [ -f /var/lock/subsys/zope ]; then
     /etc/rc.d/init.d/zope restart >&2
 fi
@@ -76,6 +79,9 @@ echo "From /manage interface there should be a 'Select Type to Add' and says Plo
 echo "The default Plone administrator userid is 'admin' with password 'plone'." >&2
 
 %postun
+for p in CMFPlone DCWorkflow i18n ; do
+      /usr/sbin/installzopeproduct -d $p
+done
 if [ -f /var/lock/subsys/zope ]; then
 	/etc/rc.d/init.d/zope restart >&2
 fi
@@ -83,6 +89,4 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc docs/*
-%{product_dir}/CMFPlone
-%{product_dir}/DCWorkflow
-%{product_dir}/i18n
+%{_datadir}/%{name}
