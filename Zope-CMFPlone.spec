@@ -1,7 +1,4 @@
-#
-# Warning: This version (RC1) make errors on Zope (2.7b3) after AddPloneSite
-# Recommended use stable version of Plone :)
-#
+
 %include	/usr/lib/rpm/macros.python
 %define		zope_subname	CMFPlone
 Summary:	Free and open source Content Management System based on Zope and CMF
@@ -9,7 +6,7 @@ Summary:	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
 Version:	2.0
 %define		sub_ver RC1 
-Release:	5.%{sub_ver}.1
+Release:	5.%{sub_ver}.2
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/%{zope_subname}%{version}-%{sub_ver}.tar.gz
@@ -53,6 +50,7 @@ Pythonem.
 %build
 # remove dirs - additional packages!
 rm -rf {BTreeFolder2,CMFQuickInstallerTool,ExternalEditor,GroupUserFolder,Formulator}
+find . -type f -name "*.pyo" -exec rm -rf {} \;;
 
 mkdir docs docs/CMFPlone docs/CMFFormController docs/i18n
 rm -rf `find . type f -name .cvsignore`
