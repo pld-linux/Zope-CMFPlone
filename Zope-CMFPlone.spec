@@ -4,12 +4,12 @@ Summary:	Free and open source Content Management System based on Zope and CMF
 Summary:	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
 Version:	2.0
-%define		sub_ver beta3
-Release:	4.%{sub_ver}.2
+%define		sub_ver RC1 
+Release:	5.%{sub_ver}.1
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/%{zope_subname}%{version}-%{sub_ver}.tar.gz
-# Source0-md5:	ae47b12f56eb6e4f86ec7b0650e35552
+# Source0-md5:	cd606b698247526073a6ad3a0ffa5579
 Patch0:		%{name}-migration.patch
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
@@ -79,7 +79,6 @@ done
 if [ -f /var/lock/subsys/zope ]; then
 	/etc/rc.d/init.d/zope restart >&2
 fi
-echo "From /manage interface there should be a 'Select Type to Add' and says Plone Site" >&2
 
 %postun
 if [ "$1" = "0" ]; then
