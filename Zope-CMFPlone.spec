@@ -11,7 +11,7 @@ Source0:	http://dl.sourceforge.net/plone/CMF%{zope_subname}%{version}.tar.gz
 # Source0-md5:	942dbc488e6fb15c356e010076857999
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
-Requires:	CMF <= 1.4
+Requires:	Zope-CMF <= 1.4
 Requires:	Zope
 Requires:	Zope-Formulator
 BuildArch:	noarch
