@@ -2,11 +2,11 @@
 %include	/usr/lib/rpm/macros.python
 %define		zope_subname	CMFPlone
 Summary:	Free and open source Content Management System based on Zope and CMF
-Summary:	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
+Summary(pl):	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
 Version:	2.0
 # %%define		sub_ver RC6
-Release:	6
+Release:	7
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://osdn.dl.sourceforge.net/sourceforge/plone/%{zope_subname}%{version}-final.tar.gz
