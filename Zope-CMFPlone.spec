@@ -5,11 +5,12 @@ Summary:	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
 Version:	2.0
 %define		sub_ver beta3
-Release:	4.%{sub_ver}
+Release:	4.%{sub_ver}.1
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/%{zope_subname}%{version}-%{sub_ver}.tar.gz
 # Source0-md5:	ae47b12f56eb6e4f86ec7b0650e35552
+Patch0:		%{name}-migration.patch
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
 Requires:	Zope-CMF >= 1.4
@@ -43,6 +44,7 @@ Pythonem.
 
 %prep
 %setup -q -n %{zope_subname}-%{version}-%{sub_ver}
+%patch0 -p1
 
 %build
 # remove dirs - additional packages!
