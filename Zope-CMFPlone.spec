@@ -5,7 +5,7 @@ Summary(pl):	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
 Version:	2.0.5
 # %%define		sub_ver RC6
-Release:	1
+Release:	2
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/Plone-%{version}.tar.gz
