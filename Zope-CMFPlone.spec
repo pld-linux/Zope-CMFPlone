@@ -1,6 +1,3 @@
-#
-# Warning: This release makes some problems after upgrade - Zope 2.7.2 sometimes 
-# not started properly!
 
 %define		zope_subname	CMFPlone
 Summary:	Free and open source Content Management System based on Zope and CMF
@@ -8,11 +5,11 @@ Summary(pl):	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
 Version:	2.0.4
 # %%define		sub_ver RC6
-Release:	1
+Release:	2
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/Plone-%{version}.tar.gz
-# Source0-md5:	034e459d6323b33e0027ee2b89e1b9cb
+# Source0-md5:	eb35af0e3055e516291b549f1f82f97f
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
 Requires:	Zope-archetypes >= 1.2.5
