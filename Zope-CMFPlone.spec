@@ -3,20 +3,20 @@
 Summary:	Free and open source Content Management System based on Zope and CMF
 Summary(pl):	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
-Version:	2.0.4
+Version:	2.0.5
 # %%define		sub_ver RC6
-Release:	3.1
+Release:	1
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/Plone-%{version}.tar.gz
-# Source0-md5:	eb35af0e3055e516291b549f1f82f97f
+# Source0-md5:	fe8ce932877c53bb22b1f88d2b4c9211
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
 Requires:	Zope-archetypes >= 1.2.5
-Requires:	Zope-CMF >= 1.5.0
+Requires:	Zope-CMF >= 1.4.7
 Requires:	Zope >= 2.6.2
 Requires:	Zope-BTreeFolder2
-Requires:	Zope-CMFQuickInstallerTool >= 1.5.0
+Requires:	Zope-CMFQuickInstallerTool >= 1.5.1
 Requires:	Zope-ExternalEditor
 Requires:	Zope-Formulator >= 1.6.2
 Requires:	Zope-GroupUserFolder >= 2.0.1
@@ -50,7 +50,7 @@ Pythonem.
 # remove dirs - additional packages!
 # ExternalEditor
 rm -rf {BTreeFolder2,CMFQuickInstallerTool,Formulator,GroupUserFolder,Archetypes,generator,validation}
-rm -rf {CMFCalendar,CMFCore,CMFDefault,CMFTopic,DCWorkflow,PortalTransforms,Epoz,CMFActionIcons}
+rm -rf {CMFCalendar,CMFCore,CMFDefault,CMFTopic,DCWorkflow,PortalTransforms,Epoz}
 find . -type d -name debian | xargs rm -rf
 
 %build
@@ -78,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in CMFPlone CMFFormController PlacelessTranslationService PloneErrorReporting; do
+for p in CMFPlone CMFActionIcons CMFFormController PlacelessTranslationService PloneErrorReporting; do
 	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -87,7 +87,7 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-	for p in CMFPlone CMFFormController PlacelessTranslationService PloneErrorReporting; do
+	for p in CMFPlone CMFActionIcons CMFFormController PlacelessTranslationService PloneErrorReporting; do
 		/usr/sbin/installzopeproduct -d $p
 	done
 	if [ -f /var/lock/subsys/zope ]; then
