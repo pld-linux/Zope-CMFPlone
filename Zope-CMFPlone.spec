@@ -4,7 +4,7 @@ Summary:	A free, open source Content Management System based on Zope and CMF
 Summary:	Darmowy, otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-CMF%{zope_subname}
 Version:	1.0.5
-Release:	5
+Release:	6
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/CMF%{zope_subname}%{version}.tar.gz
@@ -15,7 +15,8 @@ Requires:	Zope-CMF <= 1.4
 Requires:	Zope
 Requires:	Zope-Formulator
 BuildArch:	noarch
-BuildRoot:	%{tmpdir}/%{zope_subname}-%{version}-root-%(id -u -n)
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	CMF
 
 %define		product_dir	/usr/lib/zope/Products
 
