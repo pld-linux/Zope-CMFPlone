@@ -5,12 +5,12 @@ Summary:	Free and open source Content Management System based on Zope and CMF
 Summary:	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
 Version:	2.0
-%define		sub_ver RC3
+%define		sub_ver RC4
 Release:	5.%{sub_ver}.1
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/%{zope_subname}%{version}-%{sub_ver}.tar.gz
-# Source0-md5:	3d27488719abe082abd4082f9b8dbc16
+# Source0-md5:	a51e9d58c83911552c4620ab111a197a
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
 Requires:	Zope-CMF >= 1.4
@@ -18,7 +18,7 @@ Requires:	Zope >= 2.6.2
 Requires:	Zope-BTreeFolder2
 Requires:	Zope-CMFQuickInstallerTool
 Requires:	Zope-ExternalEditor
-Requires:	Zope-Formulator
+Requires:	Zope-Formulator >= 1.6.1
 Requires:	Zope-GroupUserFolder >= 2.0
 Requires(post,postun):	/usr/sbin/installzopeproduct
 BuildArch:	noarch
@@ -44,19 +44,18 @@ Pythonem.
 
 %prep
 %setup -q -n %{zope_subname}-%{version}-%{sub_ver}
-
-%build
 # remove dirs - additional packages!
 # ExternalEditor
 rm -rf {BTreeFolder2,CMFQuickInstallerTool,Formulator,GroupUserFolder}
-find . -type f -name "*.pyo" -exec rm -rf {} \;;
+find . -type d -name debian | xargs rm -rf
 
+%build
 mkdir docs docs/CMFPlone docs/CMFFormController docs/i18n docs/PlacelessTranslationService
-rm -rf `find . type f -name .cvsignore`
-mv -f CMFPlone/{CREDITS.txt,ChangeLog,HISTORY.txt,INSTALL.txt,README.txt} docs/CMFPlone
+mv -f CMFPlone/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt,UPGRADE.txt,LICENSE.txt} docs/CMFPlone
 mv -f CMFPlone/docs/* docs/CMFPlone
 mv -f CMFPlone/i18n/ChangeLog docs/i18n
 rm -rf CMFPlone/i18n/{build.bat,msgfmt.exe}
+rm -rf CMFPlone/LICENSE.GPL
 mv -f CMFFormController/{AUTHORS,ChangeLog,README.txt} docs/CMFFormController
 rm -rf CMFPlone/docs
 mv -f PlacelessTranslationService/{COPYING.txt,NEWS.txt} docs/PlacelessTranslationService
