@@ -12,7 +12,7 @@ Source0:	http://dl.sourceforge.net/plone/CMF%{zope_subname}%{version}-%{sub_ver}
 # Source0-md5:	ae47b12f56eb6e4f86ec7b0650e35552
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
-Requires:	CMF >= 1.4
+Requires:	Zope-CMF >= 1.4
 Requires:	Zope >= 2.6.2
 Requires:	Zope-BTreeFolder2
 Requires:	Zope-CMFQuickInstallerTool
