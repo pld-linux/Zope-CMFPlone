@@ -11,6 +11,7 @@ Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/Plone-%{version}.tar.gz
 # Source0-md5:	fe8ce932877c53bb22b1f88d2b4c9211
 URL:		http://www.plone.org/
+BuildRequires:  python
 %pyrequires_eq	python-modules
 Requires:	Zope-archetypes >= 1.2.5
 Requires:	Zope-CMF = 1:1.4.7
