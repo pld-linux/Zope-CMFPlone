@@ -3,22 +3,16 @@
 Summary:	Free and open source Content Management System based on Zope and CMF
 Summary:	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
-Version:	2.0
-%define		sub_ver beta3
-Release:	4.%{sub_ver}
+Version:	1.0.5
+Release:	1
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
-Source0:	http://dl.sourceforge.net/plone/%{zope_subname}%{version}-%{sub_ver}.tar.gz
-# Source0-md5:	ae47b12f56eb6e4f86ec7b0650e35552
+Source0:	http://dl.sourceforge.net/plone/%{zope_subname}%{version}.tar.gz
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
-Requires:	Zope-CMF >= 1.4
+Requires:	Zope-CMF >= 1.3.3
+Requires:	Zope-CMF < 1.4
 Requires:	Zope >= 2.6.2
-Requires:	Zope-BTreeFolder2
-Requires:	Zope-CMFQuickInstallerTool
-Requires:	Zope-ExternalEditor
-Requires:	Zope-Formulator
-Requires:	Zope-GroupUserFolder
 Requires(post,postun):	/usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -42,19 +36,17 @@ zabezpieczenia serwisu. Plone dzia³a w zestawie z CMF, Zope i
 Pythonem.
 
 %prep
-%setup -q -n %{zope_subname}-%{version}-%{sub_ver}
+%setup -q -n %{zope_subname}-%{version}
 
 %build
 # remove dirs - additional packages!
 rm -rf {BTreeFolder2,CMFQuickInstallerTool,ExternalEditor,GroupUserFolder,Formulator}
 
 mkdir docs docs/CMFPlone docs/CMFFormController docs/i18n
-rm -rf `find . type f -name .cvsignore`
 mv -f CMFPlone/{CREDITS.txt,ChangeLog,HISTORY.txt,INSTALL.txt,README.txt} docs/CMFPlone
 mv -f CMFPlone/docs/* docs/CMFPlone
-mv -f CMFPlone/i18n/ChangeLog docs/i18n
-rm -rf CMFPlone/i18n/{build.bat,msgfmt.exe}
-mv -f CMFFormController/{AUTHORS,ChangeLog,README.txt} docs/CMFFormController
+mv -f i18n/ChangeLog docs/i18n
+rm -rf i18n/{build.bat,msgfmt.exe}
 rm -rf CMFPlone/docs
 
 %install
@@ -71,7 +63,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in CMFPlone CMFActionIcons CMFFormController; do
+for p in CMFPlone DCWorkflow; do
 	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -81,7 +73,7 @@ echo "From /manage interface there should be a 'Select Type to Add' and says Plo
 
 %postun
 if [ "$1" = "0" ]; then
-	for p in CMFPlone CMFActionIcons CMFFormController; do
+	for p in CMFPlone DCWorkflow; do
 		/usr/sbin/installzopeproduct -d $p
 	done
 	if [ -f /var/lock/subsys/zope ]; then
