@@ -1,5 +1,4 @@
 
-%include	/usr/lib/rpm/macros.python
 %define		zope_subname	CMFPlone
 Summary:	Free and open source Content Management System based on Zope and CMF
 Summary(pl):	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
