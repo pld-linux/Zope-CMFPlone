@@ -79,9 +79,11 @@ echo "From /manage interface there should be a 'Select Type to Add' and says Plo
 echo "The default Plone administrator userid is 'admin' with password 'plone'." >&2
 
 %postun
-for p in CMFPlone DCWorkflow i18n ; do
-      /usr/sbin/installzopeproduct -d $p
-done
+if [ "$1" = "0" ]; then
+	for p in CMFPlone DCWorkflow i18n ; do
+	      /usr/sbin/installzopeproduct -d $p
+	done
+fi
 if [ -f /var/lock/subsys/zope ]; then
 	/etc/rc.d/init.d/zope restart >&2
 fi
