@@ -1,7 +1,7 @@
 %include	/usr/lib/rpm/macros.python
 %define		zope_subname	Plone
-Summary:	Plone - a free, open source Content Management System based on Zope and CMF
-Summary:	Plone - darmowy, otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
+Summary:	Free and open source Content Management System based on Zope and CMF
+Summary:	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-CMF%{zope_subname}
 Version:	2.0
 %define		sub_ver beta3
