@@ -1,14 +1,14 @@
 %include	/usr/lib/rpm/macros.python
-%define		zope_subname	Plone
+%define		zope_subname	CMFPlone
 Summary:	Free and open source Content Management System based on Zope and CMF
 Summary:	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
-Name:		Zope-CMF%{zope_subname}
+Name:		Zope-%{zope_subname}
 Version:	2.0
 %define		sub_ver beta3
 Release:	4.%{sub_ver}
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
-Source0:	http://dl.sourceforge.net/plone/CMF%{zope_subname}%{version}-%{sub_ver}.tar.gz
+Source0:	http://dl.sourceforge.net/plone/%{zope_subname}%{version}-%{sub_ver}.tar.gz
 # Source0-md5:	ae47b12f56eb6e4f86ec7b0650e35552
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
@@ -19,11 +19,10 @@ Requires:	Zope-CMFQuickInstallerTool
 Requires:	Zope-ExternalEditor
 Requires:	Zope-Formulator
 Requires:	Zope-GroupUserFolder
+Requires:	/usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Obsoletes:	CMF
-
-%define		product_dir	/usr/lib/zope/Products
+Obsoletes:	Plone
 
 %description
 Plone is a free, open source Content Management System. The focus of
@@ -42,7 +41,7 @@ zabezpieczenia serwisu. Plone dzia³a w zestawie z CMF, Zope i
 Pythonem.
 
 %prep
-%setup -q -n CMF%{zope_subname}-%{version}-%{sub_ver}
+%setup -q -n %{zope_subname}-%{version}-%{sub_ver}
 
 %build
 # remove dirs - additional packages!
@@ -59,32 +58,37 @@ rm -rf CMFPlone/docs
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{product_dir}
-cp -af * $RPM_BUILD_ROOT%{product_dir}
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -af * $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-%py_comp $RPM_BUILD_ROOT%{product_dir}
-%py_ocomp $RPM_BUILD_ROOT%{product_dir}
+%py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
+%py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-rm -rf $RPM_BUILD_ROOT%{product_dir}/docs
+rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
+for p in CMFPlone CMFActionIcons CMFFormController; do
+	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
+done
 if [ -f /var/lock/subsys/zope ]; then
 	/etc/rc.d/init.d/zope restart >&2
 fi
 echo "From /manage interface there should be a 'Select Type to Add' and says Plone Site" >&2
 
 %postun
-if [ -f /var/lock/subsys/zope ]; then
-	/etc/rc.d/init.d/zope restart >&2
+if [ "$1" = "0" ]; then
+	for p in CMFPlone CMFActionIcons CMFFormController; do
+		/usr/sbin/installzopeproduct -d $p
+	done
+	if [ -f /var/lock/subsys/zope ]; then
+		/etc/rc.d/init.d/zope restart >&2
+	fi
 fi
 
 %files
 %defattr(644,root,root,755)
 %doc docs/*
-%{product_dir}/CMFPlone
-%{product_dir}/CMFActionIcons
-%{product_dir}/CMFFormController
-# %%{product_dir}/i18n
+%{_datadir}/%{name}
