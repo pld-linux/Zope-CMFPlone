@@ -5,13 +5,12 @@ Summary:	Free and open source Content Management System based on Zope and CMF
 Summary:	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
 Version:	2.0
-%define		sub_ver RC1 
-Release:	5.%{sub_ver}.2
+%define		sub_ver RC2
+Release:	5.%{sub_ver}.1
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/%{zope_subname}%{version}-%{sub_ver}.tar.gz
-# Source0-md5:	cd606b698247526073a6ad3a0ffa5579
-Patch0:		%{name}-migration.patch
+# Source0-md5:	41bad786307e170df4f8f708e887c890
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
 Requires:	Zope-CMF >= 1.4
@@ -45,14 +44,14 @@ Pythonem.
 
 %prep
 %setup -q -n %{zope_subname}-%{version}-%{sub_ver}
-%patch0 -p1
 
 %build
 # remove dirs - additional packages!
-rm -rf {BTreeFolder2,CMFQuickInstallerTool,ExternalEditor,GroupUserFolder,Formulator}
+# ExternalEditor
+rm -rf {BTreeFolder2,CMFQuickInstallerTool,Formulator,GroupUserFolder}
 find . -type f -name "*.pyo" -exec rm -rf {} \;;
 
-mkdir docs docs/CMFPlone docs/CMFFormController docs/i18n
+mkdir docs docs/CMFPlone docs/CMFFormController docs/i18n docs/PlacelessTranslationService
 rm -rf `find . type f -name .cvsignore`
 mv -f CMFPlone/{CREDITS.txt,ChangeLog,HISTORY.txt,INSTALL.txt,README.txt} docs/CMFPlone
 mv -f CMFPlone/docs/* docs/CMFPlone
@@ -60,6 +59,7 @@ mv -f CMFPlone/i18n/ChangeLog docs/i18n
 rm -rf CMFPlone/i18n/{build.bat,msgfmt.exe}
 mv -f CMFFormController/{AUTHORS,ChangeLog,README.txt} docs/CMFFormController
 rm -rf CMFPlone/docs
+mv -f PlacelessTranslationService/{COPYING.txt,NEWS.txt} docs/PlacelessTranslationService
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -75,7 +75,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in CMFPlone CMFActionIcons CMFFormController; do
+for p in CMFPlone CMFActionIcons CMFFormController PlacelessTranslationService; do
 	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -84,7 +84,7 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-	for p in CMFPlone CMFActionIcons CMFFormController; do
+	for p in CMFPlone CMFActionIcons CMFFormController PlacelessTranslationService; do
 		/usr/sbin/installzopeproduct -d $p
 	done
 	if [ -f /var/lock/subsys/zope ]; then
