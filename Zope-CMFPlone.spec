@@ -1,13 +1,14 @@
 %include	/usr/lib/rpm/macros.python
-Summary:	Plone - a free, open source Content Management System based on Zope and CMF
-Summary:	Plone - darmowy, otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
-Name:		Plone
+%define		zope_subname Plone
+Summary:	A free, open source Content Management System based on Zope and CMF
+Summary:	Darmowy, otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
+Name:		Zope-CMF%{zope_subname}
 Version:	1.1
 %define		sub_ver alpha2
-Release:	2.%{sub_ver}
+Release:	3.%{sub_ver}
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
-Source0:	http://dl.sourceforge.net/plone/CMF%{name}%{version}%{sub_ver}.tar.gz
+Source0:	http://dl.sourceforge.net/plone/CMF%{zope_subname}%{version}%{sub_ver}.tar.gz
 # Source0-md5:	1f848c36fa1f06761185a12e08af28ff
 URL:		http://www.plone.org/
 %pyrequires_eq	python-modules
@@ -19,7 +20,7 @@ Requires:	Zope-ExternalEditor
 Requires:	Zope-Formulator
 Requires:	Zope-GroupUserFolder
 BuildArch:	noarch
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRoot:	%{tmpdir}/%{zope_subname}-%{version}-root-%(id -u -n)
 
 %define		product_dir	/usr/lib/zope/Products
 
@@ -40,7 +41,7 @@ zabezpieczenia serwisu. Plone dzia³a w zestawie z CMF, Zope i
 Pythonem.
 
 %prep
-%setup -q -n CMF%{name}-%{version}
+%setup -q -n CMF%{zope_subname}-%{version}
 
 %build
 # remove dirs - additonal specs!
