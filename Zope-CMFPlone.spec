@@ -1,3 +1,7 @@
+#
+# Warning: This version (RC1) make errors on Zope (2.7b3) after AddPloneSite
+# Recommended use stable version of Plone :)
+#
 %include	/usr/lib/rpm/macros.python
 %define		zope_subname	CMFPlone
 Summary:	Free and open source Content Management System based on Zope and CMF
