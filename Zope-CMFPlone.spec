@@ -23,6 +23,7 @@ Requires(post,postun):	/usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	Plone
+Conflicts:	CMF
 
 %description
 Plone is a free, open source Content Management System. The focus of
