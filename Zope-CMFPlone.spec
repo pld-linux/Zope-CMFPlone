@@ -20,7 +20,6 @@ Requires:	Zope-CMFQuickInstallerTool
 Requires:	Zope-ExternalEditor
 Requires:	Zope-Formulator
 Requires:	Zope-GroupUserFolder
-Requires:	Zope-Epoz
 Requires(post,postun):	/usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
