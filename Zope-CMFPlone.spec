@@ -5,7 +5,7 @@ Summary(pl):	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
 Version:	2.0.5
 # %%define		sub_ver RC6
-Release:	5
+Release:	6
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/Plone-%{version}.tar.gz
@@ -54,16 +54,16 @@ Pythonem.
 # ExternalEditor
 rm -rf {BTreeFolder2,CMFQuickInstallerTool,Formulator,GroupUserFolder,Archetypes,generator,validation}
 rm -rf {CMFCalendar,CMFCore,CMFDefault,CMFTopic,DCWorkflow,PortalTransforms,Epoz}
+rm -rf {ExternalEditor,PlacelessTranslationService}
 find . -type d -name debian | xargs rm -rf
 
 %build
-mkdir docs docs/CMFPlone docs/CMFFormController docs/PlacelessTranslationService docs/PloneErrorReporting
+mkdir docs docs/CMFPlone docs/CMFFormController docs/PloneErrorReporting
 mv -f CMFPlone/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt,UPGRADE.txt,LICENSE.txt} docs/CMFPlone
 # mv -f CMFPlone/docs/* docs/CMFPlone
 rm -rf CMFPlone/LICENSE.GPL
 mv -f CMFFormController/{AUTHORS,ChangeLog,README.txt} docs/CMFFormController
 rm -rf CMFPlone/docs
-mv -f PlacelessTranslationService/NEWS.txt docs/PlacelessTranslationService
 mv -f PloneErrorReporting/{ChangeLog,README.txt} docs/PloneErrorReporting
 rm -rf PloneErrorReporting/LICENSE.txt
 
@@ -81,7 +81,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in CMFPlone CMFActionIcons CMFFormController PlacelessTranslationService PloneErrorReporting; do
+for p in CMFPlone CMFActionIcons CMFFormController PloneErrorReporting; do
 	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -90,7 +90,7 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-	for p in CMFPlone CMFActionIcons CMFFormController PlacelessTranslationService PloneErrorReporting; do
+	for p in CMFPlone CMFActionIcons CMFFormController PloneErrorReporting; do
 		/usr/sbin/installzopeproduct -d $p
 	done
 	if [ -f /var/lock/subsys/zope ]; then
