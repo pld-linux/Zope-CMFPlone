@@ -4,7 +4,7 @@ Summary:	Free and open source Content Management System based on Zope and CMF
 Summary(pl):	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
 Version:	2.1
-Release:	1
+Release:	2
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/Plone-%{version}.tar.gz
@@ -82,10 +82,10 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in ATContentTypes ATReferenceBrowserWidget CMFFormController CMFPlone ExtendedPathIndex PloneErrorReporting; do
+for p in ATContentTypes ATReferenceBrowserWidget CMFDynamicViewFTI CMFFormController CMFPlone ExtendedPathIndex; do
 	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
-for p in PloneTranslations ResourceRegisteries SecureMailHost; do
+for p in PloneErrorReporting PloneTranslations ResourceRegistries SecureMailHost; do
 	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done  
 
@@ -95,10 +95,10 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-	for p in ATContentTypes ATReferenceBrowserWidget CMFFormController CMFPlone ExtendedPathIndex PloneErrorReporting; do
+	for p in ATContentTypes ATReferenceBrowserWidget CMFDynamicViewFTI CMFFormController CMFPlone ExtendedPathIndex; do
 		/usr/sbin/installzopeproduct -d $p
 	done
-	for p in PloneTranslations ResourceRegisteries SecureMailHost; do
+	for p in PloneErrorReporting PloneTranslations ResourceRegistries SecureMailHost; do
 		/usr/sbin/installzopeproduct -d $p
 	done
 	if [ -f /var/lock/subsys/zope ]; then
