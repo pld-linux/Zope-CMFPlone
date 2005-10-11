@@ -4,7 +4,7 @@ Summary:	Free and open source Content Management System based on Zope and CMF
 Summary(pl):	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
 Version:	2.1
-Release:	2
+Release:	3
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/plone/Plone-%{version}.tar.gz
@@ -13,6 +13,7 @@ URL:		http://www.plone.org/
 BuildRequires:	python
 %pyrequires_eq	python-modules
 Requires:	i18ndude
+Requires:	python-Imaging
 Requires:	Zope-archetypes >= 1.3.4
 Requires:	Zope-kupu >= 1.3
 Requires:	Zope-CMF = 1:1.5.4
