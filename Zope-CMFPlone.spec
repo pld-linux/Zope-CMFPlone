@@ -3,28 +3,28 @@
 Summary:	Free and open source Content Management System based on Zope and CMF
 Summary(pl):	Darmowy i otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
-Version:	2.1.1
-Release:	3
+Version:	2.1.2
+Release:	1
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
-Source0:	http://dl.sourceforge.net/plone/Plone-%{version}.tar.gz
-# Source0-md5:	c6f013fbb8822d13ca958e68346ad22d
+Source0:	http://puzzle.dl.sourceforge.net/plone/Plone-%{version}.tar.gz
+# Source0-md5:	72989893b6cd012a5d26eccc5aa2576b
 URL:		http://www.plone.org/
 BuildRequires:	python
 %pyrequires_eq	python-modules
 Requires:	i18ndude
 Requires:	python-Imaging
-Requires:	Zope-archetypes >= 1.3.5
-Requires:	Zope-kupu >= 1.3.1
-Requires:	Zope-CMF >= 1:1.5.4
+Requires:	Zope-archetypes >= 1.3.7
+Requires:	Zope-kupu >= 1.3.3
+Requires:	Zope-CMF >= 1:1.5.5
 Requires:	Zope >= 2.7.7
 Requires:	Zope-BTreeFolder2 >= 1.0.2
-Requires:	Zope-CMFQuickInstallerTool >= 1.5.5
+Requires:	Zope-CMFQuickInstallerTool >= 1.5.7
 Requires:	Zope-ExternalEditor >= 0.9.1
 Requires:	Zope-Formulator >= 1.6.2
-Requires:	Zope-GroupUserFolder >= 1:3.4
+Requires:	Zope-GroupUserFolder >= 1:3.5
 Requires:	Zope-PlacelessTranslationService >= 1.2.1
-Requires:	Zope-PloneLanguageTool >= 0.7
+Requires:	Zope-PloneLanguageTool >= 0.9
 Requires(post,postun):	/usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
