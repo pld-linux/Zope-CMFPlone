@@ -7,30 +7,31 @@ Version:	2.1.2
 Release:	1
 License:	Zope Public License (ZPL), GPL
 Group:		Networking/Daemons
-Source0:	http://puzzle.dl.sourceforge.net/plone/Plone-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/plone/Plone-%{version}.tar.gz
 # Source0-md5:	72989893b6cd012a5d26eccc5aa2576b
 URL:		http://www.plone.org/
 BuildRequires:	python
+BuildRequires:	rpmbuild(macros) >= 1.268
 %pyrequires_eq	python-modules
-Requires:	i18ndude
-Requires:	python-Imaging
-Requires:	Zope-archetypes >= 1.3.7
-Requires:	Zope-kupu >= 1.3.3
-Requires:	Zope-CMF >= 1:1.5.5
+Requires(post,postun):	/usr/sbin/installzopeproduct
 Requires:	Zope >= 2.7.7
 Requires:	Zope-BTreeFolder2 >= 1.0.2
+Requires:	Zope-CMF >= 1:1.5.5
 Requires:	Zope-CMFQuickInstallerTool >= 1.5.7
 Requires:	Zope-ExternalEditor >= 0.9.1
 Requires:	Zope-Formulator >= 1.6.2
 Requires:	Zope-GroupUserFolder >= 1:3.5
 Requires:	Zope-PlacelessTranslationService >= 1.2.1
 Requires:	Zope-PloneLanguageTool >= 0.9
-Requires(post,postun):	/usr/sbin/installzopeproduct
-BuildArch:	noarch
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Requires:	Zope-archetypes >= 1.3.7
+Requires:	Zope-kupu >= 1.3.3
+Requires:	i18ndude
+Requires:	python-Imaging
 Obsoletes:	Plone
 Obsoletes:	Zope-PortalTransforms
 Conflicts:	CMF
+BuildArch:	noarch
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Plone is a free, open source Content Management System. The focus of
@@ -87,11 +88,8 @@ for p in ATContentTypes ATReferenceBrowserWidget CMFDynamicViewFTI CMFFormContro
 done
 for p in PloneErrorReporting PloneTranslations ResourceRegistries SecureMailHost; do
 	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
-done  
-
-if [ -f /var/lock/subsys/zope ]; then
-	/etc/rc.d/init.d/zope restart >&2
-fi
+done
+%service -q zope restart
 
 %postun
 if [ "$1" = "0" ]; then
@@ -101,9 +99,7 @@ if [ "$1" = "0" ]; then
 	for p in PloneErrorReporting PloneTranslations ResourceRegistries SecureMailHost; do
 		/usr/sbin/installzopeproduct -d $p
 	done
-	if [ -f /var/lock/subsys/zope ]; then
-		/etc/rc.d/init.d/zope restart >&2
-	fi
+	%service -q zope restart
 fi
 
 %files
