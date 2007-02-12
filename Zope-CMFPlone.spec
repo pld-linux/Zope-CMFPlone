@@ -1,7 +1,7 @@
 %include	/usr/lib/rpm/macros.python
 %define		zope_subname Plone
 Summary:	A free, open source Content Management System based on Zope and CMF
-Summary:	Darmowy, otwarty system zarz±dzania tre¶ci± oparty na Zope i CMF
+Summary(pl.UTF-8):   Darmowy, otwarty system zarzÄ…dzania treÅ›ciÄ… oparty na Zope i CMF
 Name:		Zope-CMF%{zope_subname}
 Version:	1.1
 %define		sub_ver alpha2
@@ -33,12 +33,12 @@ content types and multi-lingual support. There are many developers,
 writers and testers from all over the world, contributing to Plone
 everyday. Plone is based on the Content Management Framework.
 
-%description -l pl
-Plone jest darmowym systemem zarz±dzania informacj± z otwartym kodem
-¼ród³owym. G³ównym celem Plone jest mo¿liwo¶æ dzielenia siê informacj±
-na ka¿dym poziomie dostêpu. Jest to "silnik" serwisu umo¿liwiaj±cy
-pracê z wieloma jêzykami, z wstêpn± konfiguracj± uwzglêdniaj±c±
-zabezpieczenia serwisu. Plone dzia³a w zestawie z CMF, Zope i
+%description -l pl.UTF-8
+Plone jest darmowym systemem zarzÄ…dzania informacjÄ… z otwartym kodem
+ÅºrÃ³dÅ‚owym. GÅ‚Ã³wnym celem Plone jest moÅ¼liwoÅ›Ä‡ dzielenia siÄ™ informacjÄ…
+na kaÅ¼dym poziomie dostÄ™pu. Jest to "silnik" serwisu umoÅ¼liwiajÄ…cy
+pracÄ™ z wieloma jÄ™zykami, z wstÄ™pnÄ… konfiguracjÄ… uwzglÄ™dniajÄ…cÄ…
+zabezpieczenia serwisu. Plone dziaÅ‚a w zestawie z CMF, Zope i
 Pythonem.
 
 %prep
