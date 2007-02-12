@@ -1,7 +1,7 @@
 
 %define		zope_subname	CMFPlone
 Summary:	Free and open source Content Management System based on Zope and CMF
-Summary(pl.UTF-8):   Darmowy i otwarty system zarządzania treścią oparty na Zope i CMF
+Summary(pl.UTF-8):	Darmowy i otwarty system zarządzania treścią oparty na Zope i CMF
 Name:		Zope-%{zope_subname}
 Version:	2.1.2
 Release:	1
